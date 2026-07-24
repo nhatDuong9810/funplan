@@ -776,14 +776,12 @@ function stepResults() {
 
       <div class="qr-box">
         <h3>Your ticket 🎟️</h3>
-        <p>Grab the official PDF below — or keep this link, it reopens your exact plan on any device.</p>
-        <div class="plan-link">${url}</div>
-      </div>
-
-      <div class="actions">
-        <button class="btn green big" id="pdfBtn">Download the official PDF 📄</button>
-        <button class="btn ghost" id="shareBtn">Share 🔗</button>
-        <button class="btn ghost" id="copyBtn">Copy link</button>
+        <p>Grab the official PDF below — and this page's link reopens your exact plan anytime.</p>
+        <div class="actions" style="margin-top:14px">
+          <button class="btn green big" id="pdfBtn">Download the official PDF 📄</button>
+          <button class="btn ghost" id="shareBtn">Share 🔗</button>
+          <button class="btn ghost" id="copyBtn">Copy link</button>
+        </div>
       </div>
 
       <div class="meme-frame" style="max-width:300px;margin-top:26px">
