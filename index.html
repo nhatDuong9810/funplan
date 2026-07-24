@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Very Official Saturday Proposal 📋</title>
+  <meta name="description" content="You have been cordially invited to build your perfect Saturday." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥐</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- floating background doodles -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+  <div class="floaties" aria-hidden="true"></div>
+
+  <main id="app">
+    <div class="progress-wrap" id="progressWrap" hidden>
+      <div class="progress-label" id="progressLabel"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <section id="stage" class="stage"></section>
+  </main>
+
+  <!-- Hidden A4 page used to render the PDF -->
+  <div id="pdf-root" aria-hidden="true">
+    <div id="pdf-page"></div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="vendor/qrcode.min.js"></script>
+  <script src="vendor/confetti.min.js"></script>
+  <script src="vendor/html2pdf.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
