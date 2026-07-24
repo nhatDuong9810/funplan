@@ -69,6 +69,27 @@ function decodeState(str) {
 }
 
 /* ============================================================
+   BACK NAVIGATION — a stack of screen renderers
+   ============================================================ */
+const navStack = [];
+function navigate(fn, replace = false) {
+  if (replace && navStack.length) navStack.pop();
+  navStack.push(fn);
+  fn();
+  updateBackBtn();
+}
+function goBack() {
+  if (navStack.length < 2) return;
+  navStack.pop();
+  navStack[navStack.length - 1]();
+  updateBackBtn();
+}
+function updateBackBtn() {
+  document.getElementById("backBtn").hidden = navStack.length < 2;
+}
+document.getElementById("backBtn").onclick = goBack;
+
+/* ============================================================
    VENUE INTEL — everything you'd normally stalk before going
    (researched July 2026 — hours can shift, Maps has live info)
    ============================================================ */
@@ -231,7 +252,7 @@ function stepIntro() {
   `);
   document.getElementById("startBtn").onclick = () => {
     state.name = document.getElementById("nameInput").value.trim();
-    stepFree();
+    navigate(stepFree);
   };
   document.getElementById("nameInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") document.getElementById("startBtn").click();
@@ -258,7 +279,7 @@ function stepFree() {
 
   document.getElementById("yesBtn").onclick = () => {
     burstMini();
-    memeYes();
+    navigate(memeYes);
   };
 
   const noBtn = document.getElementById("noBtn");
@@ -273,7 +294,7 @@ function stepFree() {
     if (attempts > 6) {
       noBtn.textContent = "Okay fine, YES 🥹";
       noBtn.className = "btn big green";
-      noBtn.onclick = () => { burstMini(); memeYes(); };
+      noBtn.onclick = () => { burstMini(); navigate(memeYes); };
       toast.textContent = "the button gave up. it happens.";
       return;
     }
@@ -313,7 +334,7 @@ function question({ n, kicker, title, sub, options, key, next, venues }) {
   stage.querySelectorAll(".opt").forEach((btn) => {
     btn.onclick = () => {
       state[key] = options[+btn.dataset.i].value;
-      next();
+      navigate(next);
     };
   });
   bindIntelChips();
@@ -334,7 +355,7 @@ function memeCard({ caption, img, labels = [], btnText = "lol ok, continue →",
       <button class="btn" id="memeNext">${btnText}</button>
     </div>
   `);
-  document.getElementById("memeNext").onclick = next;
+  document.getElementById("memeNext").onclick = () => navigate(next);
 }
 
 /* ============================================================
@@ -632,13 +653,14 @@ function stepLoading() {
       <div class="loader-msg" id="loaderMsg">${msgs[0]}</div>
     </div>
   `);
+  document.getElementById("backBtn").hidden = true;
   let i = 0;
   const el = () => document.getElementById("loaderMsg");
   const timer = setInterval(() => {
     i++;
     if (i >= msgs.length) {
       clearInterval(timer);
-      stepResults();
+      navigate(stepResults, true);
       return;
     }
     if (el()) el().textContent = msgs[i];
@@ -795,7 +817,8 @@ function stepResults() {
   document.getElementById("redoBtn").onclick = () => {
     history.replaceState(null, "", location.pathname);
     Object.keys(state).forEach((k) => (state[k] = k === "name" ? "" : null));
-    stepIntro();
+    navStack.length = 0;
+    navigate(stepIntro);
   };
 }
 
@@ -1006,9 +1029,9 @@ function downloadPdf(s, url) {
     const restored = decodeState(d);
     if (restored && restored.lunch) {
       Object.assign(state, restored);
-      stepResults();
+      navigate(stepResults);
       return;
     }
   }
-  stepIntro();
+  navigate(stepIntro);
 })();
