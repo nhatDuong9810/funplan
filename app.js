@@ -296,7 +296,7 @@ function stepFree() {
    ============================================================ */
 function question({ n, kicker, title, sub, options, key, next, venues }) {
   const opts = options.map((o, i) => `
-    <button class="opt" data-i="${i}">
+    <button class="opt${o.star ? " star" : ""}" data-i="${i}">
       <span class="emo">${o.emo}</span>
       <span>${o.label}${o.note ? `<small>${o.note}</small>` : ""}</span>
     </button>
@@ -423,13 +423,13 @@ function stepDrink() {
     venues: [state.cafe],
     options: isKobo
       ? [
-          { emo: "🍵", value: "matcha", label: "Ceremonial matcha", note: "stone-milled while we watch" },
+          { emo: "🍵", value: "matcha", label: "Ceremonial matcha", note: "stone-milled while we watch", star: true },
           { emo: "🍂", value: "hojicha", label: "Hojicha", note: "roasty. cozy. allegedly life-changing." },
           { emo: "🍋", value: "yuzu", label: "Matcha yuzu soda", note: "fizzy, zesty, extremely you" },
           { emo: "🎰", value: "surprise", label: "Staff's choice roulette", note: "we live dangerously" },
         ]
       : [
-          { emo: "🍵", value: "matcha", label: "Matcha", note: "green. serene. supreme." },
+          { emo: "🍵", value: "matcha", label: "Matcha", note: "green. serene. supreme.", star: true },
           { emo: "☕", value: "coffee", label: "Coffee", note: "classic. dependable. caffeinated." },
           { emo: "🍫", value: "choc", label: "Hot chocolate", note: "cozy maximalist" },
           { emo: "🎰", value: "surprise", label: "Barista's choice roulette", note: "we live dangerously" },
@@ -517,9 +517,9 @@ function stepShop() {
     next: memeShop,
     venues: ["hflowers", "meeq"],
     options: [
-      { emo: "🌸", value: "hflower", label: "Hflower", note: "I'll carry the bags" },
-      { emo: "🧸", value: "meeq", label: "Meeq", note: "cute things inspection" },
-      { emo: "💪", value: "both", label: "Both. Drag me to both.", note: "maximum damage" },
+      { emo: "🌸", value: "hflower", label: "H Flowers", note: "fresh & dried blooms — I'll carry everything", star: true },
+      { emo: "🧸", value: "meeq", label: "MeeQ", note: "Australia's biggest Jellycat stash", star: true },
+      { emo: "💪", value: "both", label: "Both. Drag me to both.", note: "flowers AND Jellycats? bold. respected." },
       { emo: "🍵", value: "skip", label: "Skip it — more café/wander time", note: "a minimalist icon" },
     ],
   });

@@ -168,6 +168,29 @@ h2 { font-size: clamp(24px, 5vw, 32px); margin-bottom: 10px; }
 }
 .opt:active { transform: scale(0.98); }
 
+/* starred options — quietly nudged toward her favourites */
+.opt.star {
+  border-color: var(--sun);
+  background: #fffcf1;
+  box-shadow: 0 4px 14px rgba(255, 209, 102, 0.35);
+}
+.opt.star::after {
+  content: "✨ rumored favourite";
+  position: absolute;
+  top: -11px;
+  right: 14px;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  background: var(--sun);
+  color: #6b5310;
+  padding: 3px 10px;
+  border-radius: 99px;
+  box-shadow: 0 2px 5px rgba(107, 83, 16, 0.2);
+}
+.opt.star { position: relative; }
+.opt.star:hover { border-color: var(--sun); box-shadow: 0 8px 20px rgba(255, 209, 102, 0.45); }
+
 /* name input */
 .name-row { display: flex; gap: 10px; margin-bottom: 14px; }
 .name-input {
