@@ -980,22 +980,39 @@ function downloadPdf(s, url) {
 
   const fname = (s.name ? s.name.replace(/[^\w\-]+/g, "-") + "s" : "Our") + "-Official-Saturday.pdf";
 
+  // html2canvas (bundled in html2pdf 0.10) mis-offsets the capture by the
+  // page's scroll position, producing a blank/cropped PDF when the user has
+  // scrolled down (the download button is always below the fold). Pin the
+  // scroll to 0 during capture and restore it afterwards.
+  const sx = window.scrollX, sy = window.scrollY;
+  window.scrollTo(0, 0);
+  const restoreScroll = () => window.scrollTo(sx, sy);
+
   html2pdf()
     .set({
       margin: 0,
       filename: fname,
       image: { type: "jpeg", quality: 0.96 },
-      html2canvas: { scale: 2, useCORS: true, backgroundColor: "#fff7ee" },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#fff7ee",
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: 1200,
+      },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     })
     .from(page)
     .save()
     .then(() => {
+      restoreScroll();
       btn.textContent = "Downloaded! Check your files 📂";
       burstMini();
       setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
     })
     .catch((err) => {
+      restoreScroll();
       console.error("PDF error:", err);
       btn.textContent = "Hmm, try again? 🔁";
       btn.disabled = false;
