@@ -472,7 +472,6 @@ function stepDessert() {
     options: [
       { emo: "🍰", value: "yes", label: "Yes. Obviously. Next question.", note: "correct answer" },
       { emo: "🥄", value: "share", label: "\"We can share one\"", note: "famous last words" },
-      { emo: "😇", value: "steal", label: "None for me… I'll just have some of yours", note: "I see you. I KNOW you." },
     ],
   });
 }
@@ -483,19 +482,6 @@ function memeDessert() {
       caption: "Me, pretending to believe \"we can share one\":",
       img: "assets/memes/monkey-puppet.jpg",
       btnText: "suuure we can \ud83d\udc40 \u2192",
-      next: stepShop,
-    });
-    return;
-  }
-  if (state.dessert === "steal") {
-    memeCard({
-      caption: "Me, presenting you with a formal ultimatum:",
-      img: "assets/memes/uno.jpg",
-      labels: [
-        { cls: "", style: "left:5%;top:12%;width:35%;text-align:center;transform:rotate(-6deg)", text: "Order your OWN dessert or draw 25" },
-        { cls: "", style: "right:6%;top:44%;width:26%;text-align:center", text: "you" },
-      ],
-      btnText: "draw the cards then \u2192",
       next: stepShop,
     });
     return;
@@ -698,7 +684,6 @@ function planLines(s) {
     dessert: {
       yes: "Dessert: confirmed. No further questions, your honor.",
       share: "\"We can share one.\" Famous last words — I'm ordering two anyway.",
-      steal: "You'll \"just have a bite\" of mine. I've made peace with it. (Ordering extra.)",
     }[s.dessert] || "",
     shop: {
       hflower: "Hflower first. Take all the time you want — I'm a certified professional bag-holder.",
