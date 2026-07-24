@@ -46,12 +46,16 @@ body {
   to   { transform: translateY(-10vh) rotate(360deg); }
 }
 
-/* ---------- back button ---------- */
+/* ---------- back button ----------
+   Sits directly above the card, hugging its left edge, so it reads as
+   "part of this card" rather than a floating global control. */
 .back-btn {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  z-index: 150;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  width: fit-content;
+  gap: 4px;
+  margin: 0 0 10px 4px;
   font-family: "Fredoka", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -59,11 +63,12 @@ body {
   background: #fff;
   border: 2px solid #eee0d2;
   border-radius: 99px;
-  padding: 8px 16px;
+  padding: 7px 15px;
   cursor: pointer;
   box-shadow: 0 3px 0 #e8dccf;
   transition: transform 0.12s, box-shadow 0.12s;
   -webkit-tap-highlight-color: transparent;
+  animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .back-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0 #e8dccf; color: var(--ink); }
 .back-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #e8dccf; }
