@@ -545,7 +545,6 @@ function stepPace() {
     options: [
       { emo: "🐌", value: "stroll", label: "Slow stroll — we're vibing, not commuting" },
       { emo: "🚶", value: "normal", label: "Normal human pace", note: "reasonable. sustainable." },
-      { emo: "🏃", value: "fast", label: "I walk fast. Keep up.", note: "noted. training begins tonight." },
     ],
   });
 }
@@ -554,7 +553,6 @@ function memePace() {
   const caption = {
     stroll: "Me, realizing a slow stroll just means more time to talk to you:",
     normal: "Me, calculating that normal pace = optimal hangout duration:",
-    fast: "Me, realizing walking fast just means I get to keep up with you:",
   }[state.pace];
   memeCard({
     caption,
@@ -574,7 +572,6 @@ function stepPhotos() {
     options: [
       { emo: "📸", value: "lots", label: "Document EVERYTHING", note: "the bánh mì gets a photoshoot too" },
       { emo: "🤳", value: "few", label: "A few cute ones", note: "quality over quantity" },
-      { emo: "🎥", value: "photographer", label: "You take the photos, I pose", note: "personal photographer: hired" },
     ],
   });
 }
@@ -588,18 +585,6 @@ function memePhotos() {
         { cls: "", style: "left:14%;right:14%;bottom:1.5%;text-align:center", text: "\u2026for one more photo \ud83d\udcf8" },
       ],
       btnText: "the archive must grow →",
-      next: memeDisclaimer,
-    });
-    return;
-  }
-  if (state.photos === "photographer") {
-    memeCard({
-      caption: "Your personal photographer, reporting for duty:",
-      img: "assets/memes/bernie.jpg",
-      labels: [
-        { cls: "", style: "left:14%;right:14%;bottom:1.5%;text-align:center", text: "\u2026you to hold the pose \ud83d\udcf8" },
-      ],
-      btnText: "say cheese 📸 →",
       next: memeDisclaimer,
     });
     return;
@@ -694,12 +679,10 @@ function planLines(s) {
     pace: {
       stroll: "Official pace: slow stroll. We're vibing, not commuting.",
       normal: "Official pace: normal human. Reasonable. Sustainable.",
-      fast: "Official pace: speedwalk. I have begun training to keep up.",
     }[s.pace] || "",
     photos: {
       lots: "Photo policy: document EVERYTHING. The food gets a photoshoot too.",
       few: "Photo policy: a few cute ones. No paparazzi behavior.",
-      photographer: "Photo policy: you shoot, I pose. Personal photographer mode unlocked.",
     }[s.photos] || "",
   };
 }
