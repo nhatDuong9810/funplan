@@ -122,7 +122,7 @@ const VENUES = {
     known: "<strong>Fresh and dried blooms</strong>, artistic arrangements and unique little gifts, right inside Melbourne Central.",
     reviews: [
       "“<b>Premium blooms and artistic design</b> in the city's most iconic hub.”",
-      "Dried arrangements = the bouquet that never dies. Romantic AND practical.",
+      "Dried arrangements = flowers that never die. Peak practicality.",
     ],
     maps: "https://www.google.com/maps/search/?api=1&query=H+Flowers+Melbourne+Central",
     site: { label: "Website 🔗", url: "https://hflowers.com.au/" },
@@ -216,10 +216,10 @@ function qProgress(n) {
 function stepIntro() {
   show(`
     <div class="card" style="text-align:center">
-      <span class="kicker">you've received a very official document</span>
-      <h1><span class="wiggle">📋</span> A Saturday Has Been<br>Proposed In Your Honor</h1>
-      <p class="sub">I may or may not have planned us a whole Saturday in the city.<br>
-      <strong>The catch:</strong> you get to customize everything.<br>
+      <span class="kicker">you've been recruited for something important</span>
+      <h1><span class="wiggle">📋</span> Operation:<br>Best Saturday Ever</h1>
+      <p class="sub">I may or may not have mapped out a whole Saturday around the city.<br>
+      <strong>The catch:</strong> you're in charge of every decision.<br>
       Seven questions. Extremely low stakes. Some memes.</p>
       <div class="name-row">
         <input id="nameInput" class="name-input" type="text" maxlength="20"
@@ -373,10 +373,10 @@ function memeLunch() {
     surprise: "Being trusted with the order (huge honor)",
   }[state.lunch];
   memeCard({
-    caption: "Accurate representation of my dating standards:",
+    caption: "Accurate representation of my food standards:",
     img: "assets/memes/drake.jpg",
     labels: [
-      { cls: "drake-top", text: "A fancy dinner where the portion is 3 molecules" },
+      { cls: "drake-top", text: "A fancy restaurant where the portion is 3 molecules" },
       { cls: "drake-bottom", text: bottom },
     ],
     next: stepCafe,
@@ -452,7 +452,7 @@ function memeDrink() {
     caption: `Me, watching you order ${drinkName}:`,
     img: "assets/memes/pigeon.jpg",
     labels: [
-      { cls: "", style: "left:10%;right:10%;bottom:4%;text-align:center", text: "is this… a green flag? 💚" },
+      { cls: "", style: "left:10%;right:10%;bottom:4%;text-align:center", text: "is this… elite taste? 💚" },
     ],
     next: stepDessert,
   });
@@ -739,7 +739,7 @@ function timelineData(s) {
     const shopVenues = s.shop === "hflower" ? ["hflowers"] : s.shop === "meeq" ? ["meeq"] : ["hflowers", "meeq"];
     items.push({ time: "3:00", title: "Melbourne Central 🛍️", text: L.shop, venues: shopVenues });
   }
-  items.push({ time: "4:00", title: "The \"I Guess We Should Go\" Part 🌇", text: "Where we both pretend the day wasn't a 10/10. I'll walk you to your tram like a gentleman.", venues: [] });
+  items.push({ time: "4:00", title: "The \"I Guess We Should Go\" Part 🌇", text: "Where we admit that was actually a great day. I'll point you toward your tram like a true local guide.", venues: [] });
   return items;
 }
 
@@ -779,7 +779,7 @@ function stepResults() {
       <div class="timeline">${tl}</div>
 
       <div class="qr-box">
-        <h3>Your ticket, madam 🎟️</h3>
+        <h3>Your ticket 🎟️</h3>
         <p>Scan with your phone to open this exact plan anywhere — then hit the button to download the official PDF.</p>
         <div id="qrcode"></div>
       </div>
@@ -793,7 +793,7 @@ function stepResults() {
       <div class="meme-frame" style="max-width:300px;margin-top:26px">
         <img src="assets/memes/success-kid.jpg" alt="success" />
       </div>
-      <p class="meme-top-caption" style="text-align:center;margin-top:10px">Date plan: successfully customized ✅</p>
+      <p class="meme-top-caption" style="text-align:center;margin-top:10px">Saturday plan: successfully customized ✅</p>
 
       <p class="meme-top-caption" style="text-align:center;margin-top:24px">Us at every party from now on:</p>
       <div class="meme-frame" style="max-width:340px">
