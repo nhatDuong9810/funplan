@@ -217,7 +217,7 @@ function stepIntro() {
   show(`
     <div class="card" style="text-align:center">
       <span class="kicker">you've been recruited for something important</span>
-      <h1><span class="wiggle">📋</span> Operation:<br>Best Saturday Ever</h1>
+      <h1><span class="wiggle">📋</span> Operation:<br>Saturday</h1>
       <p class="sub">I may or may not have mapped out a whole Saturday around the city.<br>
       <strong>The catch:</strong> you're in charge of every decision.<br>
       Seven questions. Extremely low stakes. Some memes.</p>
@@ -703,7 +703,7 @@ function timelineData(s) {
     const shopVenues = s.shop === "hflower" ? ["hflowers"] : s.shop === "meeq" ? ["meeq"] : ["hflowers", "meeq"];
     items.push({ time: "3:00", title: "Melbourne Central 🛍️", text: L.shop, venues: shopVenues });
   }
-  items.push({ time: "4:00", title: "The \"I Guess We Should Go\" Part 🌇", text: "Where we admit that was actually a great day. I'll point you toward your tram like a true local guide.", venues: [] });
+  items.push({ time: "4:00", title: "The \"I Guess We Should Go\" Part 🌇", text: "The day wraps up whenever it wraps up. I'll point you toward your tram like a true local guide.", venues: [] });
   return items;
 }
 
@@ -736,7 +736,7 @@ function stepResults() {
     <div class="card">
       <div class="result-header">
         <div class="stamp">✦ Approved — Admit Two ✦</div>
-        <h2>${name}'s Officially Perfect Saturday</h2>
+        <h2>${name}'s Official Saturday Plan</h2>
         <p class="sub" style="margin-bottom:0">Melbourne CBD Edition • custom-built by you, executed by me</p>
       </div>
 
@@ -760,7 +760,7 @@ function stepResults() {
       <p class="meme-top-caption" style="text-align:center;margin-top:24px">Us at every party from now on:</p>
       <div class="meme-frame" style="max-width:340px">
         <img src="assets/memes/they-dont-know.png" alt="they don't know" />
-        <span class="meme-label" style="right:3%;top:4%;width:56%;text-align:center">they don't know we're about to have the best Saturday ever</span>
+        <span class="meme-label" style="right:3%;top:4%;width:56%;text-align:center">they don't know we have Saturday plans 😎</span>
       </div>
 
       <p class="footer-note">P.S. — the schedule is 100% flexible. You're the boss of this itinerary. See you Saturday 😊</p>
@@ -785,7 +785,7 @@ function stepResults() {
   const shareBtn = document.getElementById("shareBtn");
   if (navigator.share) {
     shareBtn.onclick = () => navigator.share({
-      title: "Our Officially Perfect Saturday 🎟️",
+      title: "Saturday Plans 🎟️",
       text: "I customized our Saturday. It's official now.",
       url,
     }).catch(() => {});
@@ -878,7 +878,7 @@ function buildPdfHtml(s, url) {
       <div style="font-family:'Caveat',cursive;font-size:20px;color:#fff7ee;">a very official document ✦ do not lose</div>
       <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:30px;color:#ffffff;line-height:1.08;margin-top:1px;">OFFICIAL SATURDAY ITINERARY 🎟️</div>
       <div style="margin-top:7px;font-weight:800;font-size:12px;color:#fff3e2;">issued to: <span style="background:#ffffff;color:#e05252;border-radius:7px;padding:1px 9px;">${name}</span>
-      &nbsp;•&nbsp; Melbourne CBD &nbsp;•&nbsp; one (1) excellent Saturday</div>
+      &nbsp;•&nbsp; Melbourne CBD &nbsp;•&nbsp; one (1) well-planned Saturday</div>
       <div style="position:absolute;top:20px;right:36px;border:3px dashed #ffffff;color:#ffffff;font-family:'Fredoka',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:2px;padding:7px 11px;border-radius:9px;transform:rotate(6deg);">ADMIT TWO</div>
     </div>
 
@@ -911,7 +911,7 @@ function buildPdfHtml(s, url) {
     <div style="position:absolute;left:40px;right:40px;bottom:20px;display:flex;align-items:center;justify-content:space-between;border-top:3px dashed #e8d5c2;padding-top:10px;">
       <div>
         <div style="font-family:'Caveat',cursive;font-size:23px;color:#e05252;">See you Saturday 😊</div>
-        <div style="font-size:9px;color:#a99a90;margin-top:1px;">Certified by the Department of Excellent Saturdays • ref no. 001-BESTDAY<br>Hours researched like a responsible adult — scan a venue QR for live info. All stops are a ~5-min walk apart.</div>
+        <div style="font-size:9px;color:#a99a90;margin-top:1px;">Certified by the Department of Well-Planned Saturdays • ref no. 001-SATURDAY<br>Hours researched like a responsible adult — scan a venue QR for live info. All stops are a ~5-min walk apart.</div>
       </div>
       <div style="flex-shrink:0;text-align:right;font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;color:#e05252;border:3px dashed #e05252;border-radius:10px;padding:8px 12px;transform:rotate(-4deg);">TICKET 1 OF 1 ✦</div>
     </div>
