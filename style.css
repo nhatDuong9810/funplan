@@ -281,8 +281,19 @@ h2 { font-size: clamp(24px, 5vw, 32px); margin-bottom: 10px; }
 }
 .qr-box h3 { font-family: "Fredoka", sans-serif; font-size: 18px; margin-bottom: 4px; }
 .qr-box p { color: var(--ink-soft); font-size: 14px; margin-bottom: 14px; }
-#qrcode { display: inline-block; padding: 10px; background: #fff; border-radius: 14px; border: 2px solid #f0e2d3; }
-#qrcode img, #qrcode canvas { display: block; }
+.plan-link {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: #fff;
+  border: 2px solid #f0e2d3;
+  border-radius: 12px;
+  padding: 10px 14px;
+  word-break: break-all;
+  line-height: 1.5;
+  text-align: left;
+  user-select: all;
+}
 
 .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 20px; }
 

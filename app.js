@@ -452,7 +452,7 @@ function memeDrink() {
     caption: `Me, watching you order ${drinkName}:`,
     img: "assets/memes/pigeon.jpg",
     labels: [
-      { cls: "", style: "left:10%;right:10%;bottom:4%;text-align:center", text: "is this… elite taste? 💚" },
+      { cls: "", style: "left:10%;right:10%;bottom:4%;text-align:center", text: "is this… a green flag? 💚" },
     ],
     next: stepDessert,
   });
@@ -566,18 +566,14 @@ function stepPace() {
 
 function memePace() {
   const caption = {
-    stroll: "The Official Slow Stroll Treaty, signed this Saturday:",
-    normal: "The Normal Human Pace Accords, hereby ratified:",
-    fast: "The Speedwalk Act of 2026, reluctantly signed by me:",
+    stroll: "Me, realizing a slow stroll just means more time to talk to you:",
+    normal: "Me, calculating that normal pace = optimal hangout duration:",
+    fast: "Me, realizing walking fast just means I get to keep up with you:",
   }[state.pace];
   memeCard({
     caption,
-    img: "assets/memes/handshake.jpg",
-    labels: [
-      { cls: "", style: "left:5%;top:60%;width:26%;text-align:center", text: "me" },
-      { cls: "", style: "right:5%;top:60%;width:26%;text-align:center", text: "you" },
-    ],
-    btnText: "it's official \ud83e\udd1d \u2192",
+    img: "assets/memes/roll-safe.jpg",
+    btnText: "smart, right? \ud83d\ude0f \u2192",
     next: stepPhotos,
   });
 }
@@ -780,8 +776,8 @@ function stepResults() {
 
       <div class="qr-box">
         <h3>Your ticket 🎟️</h3>
-        <p>Scan with your phone to open this exact plan anywhere — then hit the button to download the official PDF.</p>
-        <div id="qrcode"></div>
+        <p>Grab the official PDF below — or keep this link, it reopens your exact plan on any device.</p>
+        <div class="plan-link">${url}</div>
       </div>
 
       <div class="actions">
@@ -807,16 +803,6 @@ function stepResults() {
       </div>
     </div>
   `);
-
-  // QR code
-  new QRCode(document.getElementById("qrcode"), {
-    text: url,
-    width: 150,
-    height: 150,
-    colorDark: "#3c2f2f",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.M,
-  });
 
   // Confetti celebration
   celebrate();
@@ -898,9 +884,6 @@ function buildPdfHtml(s, url) {
   `).join("");
 
   // main QR: reopen-the-plan link (uses the deployed domain automatically)
-  const qrImg = document.querySelector("#qrcode img");
-  const qrSrc = qrImg ? qrImg.src : makeQrDataUrl(url, 148);
-
   // venue field guide: only the stops in her plan
   const planKeys = ["madameyen"];
   if (VENUES[s.cafe]) planKeys.push(s.cafe);
@@ -964,7 +947,7 @@ function buildPdfHtml(s, url) {
         <div style="font-family:'Caveat',cursive;font-size:23px;color:#e05252;">See you Saturday 😊</div>
         <div style="font-size:9px;color:#a99a90;margin-top:1px;">Certified by the Department of Excellent Saturdays • ref no. 001-BESTDAY<br>Hours researched like a responsible adult — scan a venue QR for live info. All stops are a ~5-min walk apart.</div>
       </div>
-      ${qrSrc ? `<div style="flex-shrink:0;text-align:center;"><img src="${qrSrc}" style="width:64px;height:64px;border:2px solid #f0e2d3;border-radius:8px;background:#fff;padding:3px;" /><div style="font-size:8px;color:#a99a90;margin-top:2px;">scan to reopen your plan</div></div>` : ""}
+      <div style="flex-shrink:0;text-align:right;font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;color:#e05252;border:3px dashed #e05252;border-radius:10px;padding:8px 12px;transform:rotate(-4deg);">TICKET 1 OF 1 ✦</div>
     </div>
   </div>`;
 }
@@ -1000,6 +983,15 @@ function downloadPdf(s, url) {
         scrollX: 0,
         scrollY: 0,
         windowWidth: 1200,
+        // body{overflow-x:hidden} clips the 794px ticket to the phone's
+        // viewport width inside html2canvas's cloned document, cropping the
+        // capture. Neutralize it (clone only) and pin the ticket at 0,0.
+        onclone: (doc) => {
+          doc.documentElement.style.overflow = "visible";
+          doc.body.style.overflow = "visible";
+          const r = doc.getElementById("pdf-root");
+          if (r) { r.style.position = "absolute"; r.style.left = "0"; r.style.top = "0"; }
+        },
       },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     })
@@ -1012,10 +1004,29 @@ function downloadPdf(s, url) {
       setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
     })
     .catch((err) => {
-      restoreScroll();
-      console.error("PDF error:", err);
-      btn.textContent = "Hmm, try again? 🔁";
-      btn.disabled = false;
+      console.error("PDF save error, falling back to new tab:", err);
+      // Some mobile browsers block direct downloads — open the PDF instead.
+      return html2pdf()
+        .set({
+          margin: 0,
+          image: { type: "jpeg", quality: 0.96 },
+          html2canvas: { scale: 2, useCORS: true, backgroundColor: "#fff7ee", scrollX: 0, scrollY: 0, windowWidth: 1200 },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        })
+        .from(page)
+        .outputPdf("bloburl")
+        .then((blobUrl) => {
+          restoreScroll();
+          window.open(blobUrl, "_blank");
+          btn.textContent = "Opened in a new tab 📄";
+          setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
+        })
+        .catch((err2) => {
+          restoreScroll();
+          console.error("PDF fallback error:", err2);
+          btn.textContent = "Hmm, try again? 🔁";
+          btn.disabled = false;
+        });
     });
 }
 
